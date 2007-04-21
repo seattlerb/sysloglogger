@@ -258,6 +258,14 @@ class TestLogger < Test::Unit::TestCase
     assert_equal LEVEL_LABEL_MAP[Logger::UNKNOWN], msg.severity
   end
 
+  def test_unknown_eh
+    @logger.level = Logger::UNKNOWN
+    assert_equal true, @logger.unknown?
+
+    @logger.level = Logger::UNKNOWN + 1
+    assert_equal false, @logger.unknown?
+  end
+
   def test_fatal
     msg = log :fatal, 'fatal level message'
     assert_equal LEVEL_LABEL_MAP[Logger::FATAL], msg.severity
@@ -285,6 +293,14 @@ class TestLogger < Test::Unit::TestCase
     @logger.level = Logger::DEBUG
     msg = log :fatal, 'fatal level message'
     assert_equal LEVEL_LABEL_MAP[Logger::FATAL], msg.severity
+  end
+
+  def test_fatal_eh
+    @logger.level = Logger::FATAL
+    assert_equal true, @logger.fatal?
+
+    @logger.level = Logger::UNKNOWN
+    assert_equal false, @logger.fatal?
   end
 
   def test_error
@@ -316,6 +332,14 @@ class TestLogger < Test::Unit::TestCase
     assert_equal LEVEL_LABEL_MAP[Logger::ERROR], msg.severity
   end
 
+  def test_error_eh
+    @logger.level = Logger::ERROR
+    assert_equal true, @logger.error?
+
+    @logger.level = Logger::FATAL
+    assert_equal false, @logger.error?
+  end
+
   def test_warn
     msg = log :warn, 'warn level message'
     assert_equal LEVEL_LABEL_MAP[Logger::WARN], msg.severity
@@ -343,6 +367,14 @@ class TestLogger < Test::Unit::TestCase
     @logger.level = Logger::DEBUG
     msg = log :warn, 'warn level message'
     assert_equal LEVEL_LABEL_MAP[Logger::WARN], msg.severity
+  end
+
+  def test_warn_eh
+    @logger.level = Logger::WARN
+    assert_equal true, @logger.warn?
+
+    @logger.level = Logger::ERROR
+    assert_equal false, @logger.warn?
   end
 
   def test_info
@@ -374,6 +406,14 @@ class TestLogger < Test::Unit::TestCase
     assert_equal LEVEL_LABEL_MAP[Logger::INFO], msg.severity
   end
 
+  def test_info_eh
+    @logger.level = Logger::INFO
+    assert_equal true, @logger.info?
+
+    @logger.level = Logger::WARN
+    assert_equal false, @logger.info?
+  end
+
   def test_debug
     msg = log :debug, 'debug level message'
     assert_equal LEVEL_LABEL_MAP[Logger::DEBUG], msg.severity
@@ -401,6 +441,14 @@ class TestLogger < Test::Unit::TestCase
     @logger.level = Logger::DEBUG
     msg = log :debug, 'debug level message'
     assert_equal LEVEL_LABEL_MAP[Logger::DEBUG], msg.severity
+  end
+
+  def test_debug_eh
+    @logger.level = Logger::DEBUG
+    assert_equal true, @logger.debug?
+
+    @logger.level = Logger::INFO
+    assert_equal false, @logger.debug?
   end
 
 end

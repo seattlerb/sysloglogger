@@ -1,4 +1,5 @@
 == 1.4.0 / 2007-04-21
 
-* Split from rails_analyzer_tools
+* Split from rails_analyzer_tools.
+* Added eh methods for compatibility with Logger.
 

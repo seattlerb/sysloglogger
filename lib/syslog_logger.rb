@@ -98,20 +98,24 @@ class SyslogLogger
   end
 
   ##
-  # Builds a logging method for level +meth+.
+  # Builds a methods for level +meth+.
 
-  def self.log_method(meth)
+  def self.make_methods(meth)
     eval <<-EOM, nil, __FILE__, __LINE__ + 1
       def #{meth}(message = nil)
         return true if #{LOGGER_LEVEL_MAP[meth]} < @level
         SYSLOG.#{LOGGER_MAP[meth]} clean(message || yield)
         return true
       end
+
+      def #{meth}?
+        @level <= Logger::#{meth.to_s.upcase}
+      end
     EOM
   end
 
   LOGGER_MAP.each_key do |level|
-    log_method level
+    make_methods level
   end
 
   ##
