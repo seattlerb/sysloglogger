@@ -11,9 +11,9 @@ require 'logger'
 #
 # NOTE! You can only set the SyslogLogger program name when you initialize
 # SyslogLogger for the first time.  This is a limitation of the way
-# SyslogLogger uses syslog (and in some ways, a the way syslog(3) works).
-# Attempts to change SyslogLogger's program name after the first
-# initialization will be ignored.
+# SyslogLogger uses syslog (and in some ways, a limitation of the way
+# syslog(3) works).  Attempts to change SyslogLogger's program name after the
+# first initialization will be ignored.
 #
 # = Sample usage with Rails
 #
@@ -21,7 +21,7 @@ require 'logger'
 #
 # Add the following lines:
 #
-#   require 'production_log/syslog_logger'
+#   require 'syslog_logger'
 #   RAILS_DEFAULT_LOGGER = SyslogLogger.new
 #
 # == config/environment.rb
@@ -36,7 +36,9 @@ require 'logger'
 #
 # Other versions of Rails should have a similar change.
 #
-# == /etc/syslog.conf
+# == BSD syslog setup
+#
+# === /etc/syslog.conf
 #
 # Add the following lines:
 #
@@ -46,7 +48,7 @@ require 'logger'
 # Then touch /var/log/production.log and signal syslogd with a HUP
 # (killall -HUP syslogd, on FreeBSD).
 #
-# == /etc/newsyslog.conf
+# === /etc/newsyslog.conf
 #
 # Add the following line:
 #
@@ -54,6 +56,16 @@ require 'logger'
 #
 # This creates a log file that is rotated every day at midnight, gzip'd, then
 # kept for 7 days.  Consult newsyslog.conf(5) for more details.
+#
+# == syslog-ng setup
+#
+# === syslog-ng.conf
+#
+# destination rails_log { file("/var/log/production.log"); };
+# filter f_rails { program("rails.*"); };
+# log { source(src); filter(f_rails); destination(rails_log); };
+#
+# == Starting
 #
 # Now restart your Rails app.  Your production logs should now be showing up
 # in /var/log/production.log.  If you have mulitple machines, you can log them
