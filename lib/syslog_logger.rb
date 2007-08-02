@@ -61,9 +61,9 @@ require 'logger'
 #
 # === syslog-ng.conf
 #
-# destination rails_log { file("/var/log/production.log"); };
-# filter f_rails { program("rails.*"); };
-# log { source(src); filter(f_rails); destination(rails_log); };
+#   destination rails_log { file("/var/log/production.log"); };
+#   filter f_rails { program("rails.*"); };
+#   log { source(src); filter(f_rails); destination(rails_log); };
 #
 # == Starting
 #
