@@ -1,3 +1,9 @@
+== 1.4.1
+
+* Bug fixes
+  * Messages for syslog() are no longer cleaned twice.  Pull Request #3 by
+    Lourens Naudé
+
 == 1.4.0 / 2007-05-08
 
 * Split from rails_analyzer_tools.

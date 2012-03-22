@@ -77,10 +77,15 @@ class SyslogLogger
   ##
   # The version of SyslogLogger you are using.
 
-  VERSION = '1.4.0'
+  VERSION = '1.4.1'
 
   ##
   # Maps Logger warning types to syslog(3) warning types.
+  #
+  # Messages from ruby applications are not considered as critical as messages
+  # from other processes using syslog(3), so most messages are reduced by one
+  # level.  For example, a fatal message for ruby's Logger is considered an
+  # error for syslog(3).
 
   LOGGER_MAP = {
     :unknown => :alert,
@@ -125,6 +130,42 @@ class SyslogLogger
       end
     EOM
   end
+
+  ##
+  # :method: unknown
+  #
+  # Logs a +message+ at the unknown (syslog alert) log level, or logs the
+  # message returned from the block.
+
+  ##
+  # :method: fatal
+  #
+  # Logs a +message+ at the fatal (syslog err) log level, or logs the message
+  # returned from the block.
+
+  ##
+  # :method: error
+  #
+  # Logs a +message+ at the error (syslog warning) log level, or logs the
+  # message returned from the block.
+
+  ##
+  # :method: warn
+  #
+  # Logs a +message+ at the warn (syslog notice) log level, or logs the
+  # message returned from the block.
+
+  ##
+  # :method: info
+  #
+  # Logs a +message+ at the info (syslog info) log level, or logs the message
+  # returned from the block.
+
+  ##
+  # :method: debug
+  #
+  # Logs a +message+ at the debug (syslog debug) log level, or logs the
+  # message returned from the block.
 
   LOGGER_MAP.each_key do |level|
     make_methods level
