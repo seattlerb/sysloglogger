@@ -4,6 +4,7 @@ require 'hoe'
 
 Hoe.plugin :seattlerb
 Hoe.plugin :travis
+Hoe.plugin :git
 
 Hoe.spec 'SyslogLogger' do
   developer 'Eric Hodel', 'drbrain@segment7.net'
