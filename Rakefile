@@ -2,7 +2,6 @@
 
 require 'hoe'
 
-Hoe.plugin :seattlerb
 Hoe.plugin :travis
 Hoe.plugin :git
 
