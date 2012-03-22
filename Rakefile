@@ -1,9 +1,9 @@
 # -*- ruby -*-
 
 require 'hoe'
-require './lib/syslog_logger.rb'
 
 Hoe.plugin :seattlerb
+Hoe.plugin :travis
 
 Hoe.spec 'SyslogLogger' do
   developer 'Eric Hodel', 'drbrain@segment7.net'
